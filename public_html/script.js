@@ -1,19 +1,16 @@
-var current = "";
 var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
-var index = -1;
-var success = document.getElementById("yay");
-var yayInterval;
-
+var index = -1; // alphabet index ^
+var success = document.getElementById("yay"); // html element where the animation is played
+var yayInterval; // interval used in animation
 
 
 // ---------------- Game/general stuff --------------------
-function init() {    
-    
-    for(var i=0; i < alphabet.length; i++) {
+function init() {
+    for (var i = 0; i < alphabet.length; i++) {
         var letter = document.createElement("section");
         letter.id = i;
         letter.appendChild(document.createTextNode(alphabet[i]));
-        document.getElementById("showLetter").appendChild(letter);        
+        document.getElementById("showLetter").appendChild(letter);
     }
     success.style.opacity = 0;
     displaySection(randomIndex());
@@ -33,11 +30,11 @@ function checkAnswer() {
 function displaySection(index) {
     var sections = document.getElementsByTagName("section");
 
-    for(var i = 0; i < sections.length; i++) {
+    for (var i = 0; i < sections.length; i++) {
         if (index === i) {
-            sections[i].className='';
+            sections[i].className = '';
         } else {
-            sections[i].className='hidden';
+            sections[i].className = 'hidden';
         }
     }
 }
@@ -52,22 +49,14 @@ function randomIndex() {
 function omgWow() {
     clearInterval(yayInterval);
     success.style.opacity = 1;
-    yayInterval = setInterval(fading,5);
+    yayInterval = setInterval(fading, 5);
 
 }
 
-function fading(){
-    if(success.style.opacity <= 0){
+function fading() {
+    if (success.style.opacity <= 0) {
         clearInterval(yayInterval);
     } else {
-      success.style.opacity -= 0.01;
+        success.style.opacity -= 0.01;
     }
 }
-
-
-// ------------------ Timer stuff -----------------------
-
-
-
-
-
