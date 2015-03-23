@@ -1,61 +1,49 @@
-var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
+var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var index = -1; // alphabet index ^
-var success = document.getElementById("yay"); // html element where the animation is played
-var yayInterval; // interval used in animation
+var success = document.getElementById("successAnimation"); // html element where the animation is played
+var animInterval; // interval used in animation
 
 
 // ---------------- Game/general stuff --------------------
-function init() {
-    for (var i = 0; i < alphabet.length; i++) {
-        var letter = document.createElement("section");
-        letter.id = i;
-        letter.appendChild(document.createTextNode(alphabet[i]));
-        document.getElementById("showLetter").appendChild(letter);
-    }
+function init() {    
+    var textArea = document.getElementById("answer");
+    textArea.addEventListener('keyup', checkAnswer, false);
     success.style.opacity = 0;
-    displaySection(randomIndex());
+    displayLetter(randomIndex());
     checkAnswer();
 }
 
 function checkAnswer() {
-    console.log(document.getElementById("answer").value);
     var textArea = document.getElementById("answer");
     if (textArea.value.toUpperCase() === alphabet[index]) {
-        omgWow();
+        successAnimationStart();
         textArea.value = "";
-        displaySection(randomIndex());
+        displayLetter(randomIndex());
     }
 }
 
-function displaySection(index) {
-    var sections = document.getElementsByTagName("section");
-
-    for (var i = 0; i < sections.length; i++) {
-        if (index === i) {
-            sections[i].className = '';
-        } else {
-            sections[i].className = 'hidden';
-        }
-    }
+function displayLetter(index) {
+    var letterArea = document.getElementById("letterArea");
+    letterArea.innerHTML = alphabet[index];
 }
 
 function randomIndex() {
-    index = Math.floor(Math.random() * 29) + 0;
+    index = Math.floor(Math.random() * 26) + 0;
     return index;
 }
 
 
 // ----------------- Animation stuff --------------------
-function omgWow() {
-    clearInterval(yayInterval);
+function successAnimationStart() {
+    clearInterval(animInterval);
     success.style.opacity = 1;
-    yayInterval = setInterval(fading, 5);
+    animInterval = setInterval(fading, 5);
 
 }
 
 function fading() {
     if (success.style.opacity <= 0) {
-        clearInterval(yayInterval);
+        clearInterval(animInterval);
     } else {
         success.style.opacity -= 0.01;
     }

@@ -2,7 +2,7 @@ body {
     background-color: rgb(60, 60, 60);
 }
 
-section {    
+#letterArea {    
     background-color: white;
     width: 30%;
     margin-top: 5%;
@@ -19,10 +19,6 @@ section {
     -webkit-border-radius: 10px;
 }
 
-section.hidden {
-    display: none;
-}
-
 #answer {
     /* moar roundness! */
     border-radius: 5px;
@@ -30,7 +26,7 @@ section.hidden {
     -webkit-border-radius: 5px;    
 }
 
-#yay {
+#successAnimation {
     text-align: center; 
     color: green;
     font-size: 40px;
