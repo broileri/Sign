@@ -2,13 +2,16 @@ var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var index = -1; // alphabet index ^
 var success = document.getElementById("successAnimation"); // html element where the animation is played
 var animInterval; // interval used in animation
-var dictionary;
+var dictionary; //In-memory dictionary of words found in Ubuntu words.txt
+var originalWord; //The randomly chosen word for this round
+var nextCharToSign; //Index of the character the user needs to sign
 
 
 
 // ---------------- Game/general stuff --------------------
 function init() {    
     var textArea = document.getElementById("answer");
+    nextCharToSign = 0;
     textArea.addEventListener('keyup', checkAnswer, false);
     success.style.opacity = 0;
     loadDictionary(function () {
@@ -18,12 +21,19 @@ function init() {
 }
 
 function checkAnswer() {
-    var textArea = document.getElementById("answer");
-    if (textArea.value.toUpperCase() === alphabet[index]) {
+    var nextChar = document.getElementById(nextCharToSign).innerHTML.toLowerCase();
+    var nextAnswer = document.getElementById("answer").value.toLowerCase();
+    if (nextAnswer === nextChar) {
         successAnimationStart();
-        textArea.value = "";
-        displayWord(randomIndex());
+        document.getElementById(nextCharToSign).style.color = "green";
+        nextCharToSign += 1;
+        if (nextCharToSign === originalWord.length - 1) {
+            nextCharToSign = 0;
+            displayWord(randomIndex());
+        }
     }
+    document.getElementById("answer").value = "";
+    
 }
 
 function loadDictionary(callback) {
@@ -55,8 +65,8 @@ function loadDictionary(callback) {
 }
 
 function displayWord(index) {
-    var word = dictionary[index];
-    word = WordHtml(word);
+    originalWord = dictionary[index];
+    word = WordHtml(originalWord);
 
     var letterArea = document.getElementById("letterArea");
     letterArea.innerHTML = word;
