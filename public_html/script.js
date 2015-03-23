@@ -5,6 +5,7 @@ var animInterval; // interval used in animation
 var dictionary; //In-memory dictionary of words found in Ubuntu words.txt
 var originalWord; //The randomly chosen word for this round
 var nextCharToSign; //Index of the character the user needs to sign
+var timer;
 
 
 
@@ -17,21 +18,55 @@ function init() {
     loadDictionary(function () {
         displayWord(randomIndex());    
     });
+    startClock();
     checkAnswer();
+}
+
+function startClock() {
+    timer = $("#clock").countdown360({
+        radius                  : 60.5,
+        seconds                 : 5,
+        autostart               : true,
+        strokeWidth             : 15,
+        fontSize                : 50,
+        fontColor               : "#FFFFFF", 
+        fillStyle               : "#0276FD", 
+        strokeStyle             : "#003F87",
+        startOverAfterAdding    : true,
+        onComplete              : function () {
+            failedCharacter();
+        }
+    });
+
+    timer.start();
+}
+
+function failedCharacter() {
+    document.getElementById(nextCharToSign).style.color = "red";
+    addToNextCharToSign();
+    timer.start();
+}
+
+function succeededCharacter() {
+    document.getElementById(nextCharToSign).style.color = "green";
+    addToNextCharToSign();
+    timer.start();
+}
+
+function addToNextCharToSign() {
+    nextCharToSign += 1;
+    if (nextCharToSign === originalWord.length - 1) {
+        successAnimationStart();
+        nextCharToSign = 0;
+        displayWord(randomIndex());
+    }
 }
 
 function checkAnswer() {
     var nextChar = document.getElementById(nextCharToSign).innerHTML.toLowerCase();
     var nextAnswer = document.getElementById("answer").value.toLowerCase();
     if (nextAnswer === nextChar) {
-        
-        document.getElementById(nextCharToSign).style.color = "green";
-        nextCharToSign += 1;
-        if (nextCharToSign === originalWord.length - 1) {
-            successAnimationStart();
-            nextCharToSign = 0;
-            displayWord(randomIndex());
-        }
+        succeededCharacter();
     }
     document.getElementById("answer").value = "";
     
