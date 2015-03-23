@@ -1,22 +1,22 @@
-var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var index = -1; // alphabet index ^
 var success = document.getElementById("successAnimation"); // html element where the animation is played
 var animInterval; // interval used in animation
 var dictionary; //In-memory dictionary of words found in Ubuntu words.txt
 var originalWord; //The randomly chosen word for this round
 var nextCharToSign; //Index of the character the user needs to sign
 var timer;
+var perfect; // true if player signs or types every letter correctly
 
 
 
 // ---------------- Game/general stuff --------------------
-function init() {    
+function init() {
+    perfect = true;
     var textArea = document.getElementById("answer");
     nextCharToSign = 0;
     textArea.addEventListener('keyup', checkAnswer, false);
     success.style.opacity = 0;
     loadDictionary(function () {
-        displayWord(randomIndex());    
+        displayWord(randomIndex());
     });
     startClock();
     checkAnswer();
@@ -24,24 +24,24 @@ function init() {
 
 function startClock() {
     timer = $("#clock").countdown360({
-        radius                  : 60.5,
-        seconds                 : 5,
-        autostart               : true,
-        strokeWidth             : 15,
-        fontSize                : 50,
-        fontColor               : "#FFFFFF", 
-        fillStyle               : "#0276FD", 
-        strokeStyle             : "#003F87",
-        startOverAfterAdding    : true,
-        onComplete              : function () {
+        radius: 60.5,
+        seconds: 5,
+        autostart: true,
+        strokeWidth: 15,
+        fontSize: 50,
+        fontColor: "#FFFFFF",
+        fillStyle: "#0276FD",
+        strokeStyle: "#003F87",
+        startOverAfterAdding: true,
+        onComplete: function () {
             failedCharacter();
         }
     });
-
     timer.start();
 }
 
 function failedCharacter() {
+    perfect = false;
     document.getElementById(nextCharToSign).style.color = "red";
     addToNextCharToSign();
     timer.start();
@@ -56,7 +56,10 @@ function succeededCharacter() {
 function addToNextCharToSign() {
     nextCharToSign += 1;
     if (nextCharToSign === originalWord.length - 1) {
-        successAnimationStart();
+        if (perfect) {
+            successAnimationStart();
+        }
+        perfect = true;
         nextCharToSign = 0;
         displayWord(randomIndex());
     }
@@ -69,7 +72,7 @@ function checkAnswer() {
         succeededCharacter();
     }
     document.getElementById("answer").value = "";
-    
+
 }
 
 function loadDictionary(callback) {
@@ -83,7 +86,7 @@ function loadDictionary(callback) {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
 
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4) {
             if (xmlhttp.status == 200) {
                 dictionary = xmlhttp.responseText;
@@ -93,7 +96,7 @@ function loadDictionary(callback) {
                 alert("Something went wrong in getting the dictionary file");
             }
         }
-    }
+    };
 
     xmlhttp.open("GET", "words.txt", false);
     xmlhttp.send();
@@ -111,18 +114,15 @@ function displayWord(index) {
 function WordHtml(word) {
     var result = "";
     var i = 0;
-    while(i < word.length - 1) {
+    while (i < word.length - 1) {
         result += "<span id='" + i + "'>" + word.charAt(i) + "</span>";
-        i++
+        i++;
     }
-    
-
     return result;
 }
 
 function randomIndex() {
-    index = Math.floor(Math.random() * dictionary.length) + 0;
-    return index;
+    return Math.floor(Math.random() * dictionary.length) + 0;
 }
 
 
@@ -138,6 +138,6 @@ function fading() {
     if (success.style.opacity <= 0) {
         clearInterval(animInterval);
     } else {
-        success.style.opacity -= 0.01;
+        success.style.opacity -= 0.008;
     }
 }
