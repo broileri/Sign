@@ -24,10 +24,11 @@ function checkAnswer() {
     var nextChar = document.getElementById(nextCharToSign).innerHTML.toLowerCase();
     var nextAnswer = document.getElementById("answer").value.toLowerCase();
     if (nextAnswer === nextChar) {
-        successAnimationStart();
+        
         document.getElementById(nextCharToSign).style.color = "green";
         nextCharToSign += 1;
         if (nextCharToSign === originalWord.length - 1) {
+            successAnimationStart();
             nextCharToSign = 0;
             displayWord(randomIndex());
         }
