@@ -9,7 +9,7 @@ var perfect; // true if player signs or types every letter correctly
 
 
 // ---------------- Game/general stuff --------------------
-function init() {
+$(document).ready(function () {
     perfect = true;
     var textArea = document.getElementById("answer");
     nextCharToSign = 0;
@@ -20,15 +20,16 @@ function init() {
     });
     startClock();
     checkAnswer();
-}
+});
 
 function startClock() {
     timer = $("#clock").countdown360({
-        radius: 60.5,
+        radius: 30.5,
         seconds: 5,
+        label: false,
         autostart: true,
-        strokeWidth: 15,
-        fontSize: 50,
+        strokeWidth: 10,
+        fontSize: 30,
         fontColor: "#FFFFFF",
         fillStyle: "#0276FD",
         strokeStyle: "#003F87",

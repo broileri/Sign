@@ -7,17 +7,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style.css" >
     </head>
-    <body onload="init();">    
-        <div id ="letterArea"></div>
+    <body>
+        <div id="gameScreen">
+            <div id="clock"></div>
+            <div id ="letterArea"></div>
+        </div>
 
         <div id="areaholder">
             <input type="text" id="answer"/>
         </div>
         <p id ="successAnimation">
             Perfect! \o/
-        </p>
-        <div id="clock"> </div>
-        
+        </p>        
+
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
         <script src="jquery.countdown360.js"></script>
         <script src="script.js"></script> 
