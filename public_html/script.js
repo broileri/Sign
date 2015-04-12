@@ -56,7 +56,7 @@ function changeDifficulty(time, showCheatSheet) {
 }
 
 function dynamicRadius() {
-    return $(window).height() * 0.03;
+    return $(window).height() * 0.02;
 }
 
 function startClock() {
@@ -64,8 +64,8 @@ function startClock() {
         radius: dynamicRadius().toFixed(2),
         seconds: 5,
         label: false,
-        strokeWidth: 10,
-        fontSize: 30,
+        strokeWidth: 8,
+        fontSize: 20,
         fontColor: "#FFFFFF",
         fillStyle: "#0276FD",
         strokeStyle: "#003F87",

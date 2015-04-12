@@ -12,6 +12,7 @@ body {
     padding: 1em;  
     font-size: 3.5vw;//70px;
     text-align: center;
+    padding-top: 2em;
     
     /* such roundness */
     border-radius: 10px;
@@ -41,7 +42,7 @@ body {
 
 #clock {
     position: absolute;
-    right: 29vw; 
+    right: 27vw;
 }
 
 #gameScreen { 
