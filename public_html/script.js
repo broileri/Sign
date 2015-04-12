@@ -20,25 +20,34 @@ $(document).ready(function () {
     });
     startClock();
     checkAnswer();
+    $(window).resize(function(){
+        timer.settings.radius = dynamicRadius().toFixed(2);
+    });
 });
+
+function dynamicRadius() {
+    return $(window).height() * 0.03;
+}
 
 function startClock() {
     timer = $("#clock").countdown360({
-        radius: 30.5,
+        radius: dynamicRadius().toFixed(2),
         seconds: 5,
         label: false,
-        autostart: true,
         strokeWidth: 10,
         fontSize: 30,
         fontColor: "#FFFFFF",
         fillStyle: "#0276FD",
         strokeStyle: "#003F87",
         startOverAfterAdding: true,
+        autostart: false,
         onComplete: function () {
             failedCharacter();
         }
     });
     timer.start();
+
+    
 }
 
 function failedCharacter() {
