@@ -61,7 +61,7 @@ function changeDifficulty(time, showCheatSheet) {
 function showCheatPic() {
     $("#cheatsheet img").remove();
     var img = $('<img>');
-    img.attr('src', 'Pics/' + originalWord.charAt(nextCharToSign) + '.jpg');
+    img.attr('src', 'Pics/' + originalWord.charAt(nextCharToSign).toLowerCase() + '.jpg');
     img.appendTo('#cheatsheet');
 }
 
