@@ -17,22 +17,22 @@ $(document).ready(function () {
     loadDictionary(function () {
         displayWord(randomIndex());
     });
-    $(window).resize(function(){
+    $(window).resize(function () {
         timer.settings.radius = dynamicRadius().toFixed(2);
     });
-    $("#difficulty").children().each(function() {
-        if ($(this).attr('id') === 'hard'){
-            $(this).click(function() {
+    $("#difficulty").children().each(function () {
+        if ($(this).attr('id') === 'hard') {
+            $(this).click(function () {
                 changeDifficulty(3, false);
             });
         }
         else if ($(this).attr('id') === 'medium') {
-            $(this).click(function() {
+            $(this).click(function () {
                 changeDifficulty(5, true);
             });
         }
         else if ($(this).attr('id') === 'easy') {
-            $(this).click(function() {
+            $(this).click(function () {
                 changeDifficulty(8, true);
             });
         }
@@ -52,8 +52,16 @@ function changeDifficulty(time, showCheatSheet) {
     else {
         $("#cheatsheet").hide();
     }
+    nextCharToSign = 0;
     displayWord(randomIndex());
     timer.start();
+}
+
+function showCheatPic() {
+    $("#cheatsheet img").remove();
+    var img = $('<img>');
+    img.attr('src', 'Pics/' + originalWord.charAt(nextCharToSign) + '.jpg');
+    img.appendTo('#cheatsheet');
 }
 
 function dynamicRadius() {
@@ -62,7 +70,7 @@ function dynamicRadius() {
 
 function startClock() {
     timer = $("#clock").countdown360({
-        radius: dynamicRadius(),//.toFixed(2),
+        radius: dynamicRadius(), //.toFixed(2),
         seconds: 5,
         label: false,
         strokeWidth: 8,
@@ -93,6 +101,7 @@ function succeededCharacter() {
 }
 
 function addToNextCharToSign() {
+    console.log(nextCharToSign);
     nextCharToSign += 1;
     if (nextCharToSign === originalWord.length - 1) {
         if (perfect) {
@@ -101,7 +110,9 @@ function addToNextCharToSign() {
         perfect = true;
         nextCharToSign = 0;
         displayWord(randomIndex());
+        return;
     }
+    showCheatPic();
 }
 
 function checkAnswer() {
@@ -148,6 +159,7 @@ function displayWord(index) {
 
     var letterArea = document.getElementById("letterArea");
     letterArea.innerHTML = word;
+    showCheatPic();
 }
 
 function WordHtml(word) {
