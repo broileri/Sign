@@ -45,3 +45,8 @@ body {
 #gameScreen { 
     position: relative;
 }
+
+#difficulty {
+    float:left;
+    padding-left:1em;
+}
