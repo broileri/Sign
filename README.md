@@ -1,7 +1,5 @@
-# To do
-- Proper function for resizing of the clock
-- Clock clips from left side
-- add cheat sheet image
+# TO DO
 - score system?
+- make it look beautiful/interesting/game-like
 - combining the UI with LM, lol
 
