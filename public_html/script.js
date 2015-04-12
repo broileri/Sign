@@ -21,19 +21,19 @@ $(document).ready(function () {
         timer.settings.radius = dynamicRadius().toFixed(2);
     });
     $("#difficulty").children().each(function() {
-        if ($(this).attr('id') == 'hard'){
+        if ($(this).attr('id') === 'hard'){
             $(this).click(function() {
-                changeDifficulty(3, false)
+                changeDifficulty(3, false);
             });
         }
-        else if ($(this).attr('id') == 'medium') {
+        else if ($(this).attr('id') === 'medium') {
             $(this).click(function() {
-                changeDifficulty(5, true)
+                changeDifficulty(5, true);
             });
         }
-        else if ($(this).attr('id') == 'easy') {
+        else if ($(this).attr('id') === 'easy') {
             $(this).click(function() {
-                changeDifficulty(8, true)
+                changeDifficulty(8, true);
             });
         }
     });
@@ -52,6 +52,7 @@ function changeDifficulty(time, showCheatSheet) {
     else {
         $("#cheatsheet").hide();
     }
+    displayWord(randomIndex());
     timer.start();
 }
 
@@ -61,7 +62,7 @@ function dynamicRadius() {
 
 function startClock() {
     timer = $("#clock").countdown360({
-        radius: dynamicRadius().toFixed(2),
+        radius: dynamicRadius(),//.toFixed(2),
         seconds: 5,
         label: false,
         strokeWidth: 8,
@@ -125,8 +126,8 @@ function loadDictionary(callback) {
     }
 
     xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4) {
-            if (xmlhttp.status == 200) {
+        if (xmlhttp.readyState === 4) {
+            if (xmlhttp.status === 200) {
                 dictionary = xmlhttp.responseText;
                 dictionary = dictionary.split("\n");
             }
