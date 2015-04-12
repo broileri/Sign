@@ -18,7 +18,8 @@ $(document).ready(function () {
         displayWord(randomIndex());
     });
     $(window).resize(function () {
-        timer.settings.radius = dynamicRadius().toFixed(2);
+        timer.settings.radius = dynamicSize();//.toFixed(2);
+        timer.settings.fontSize = dynamicSize();
     });
     $("#difficulty").children().each(function () {
         if ($(this).attr('id') === 'hard') {
@@ -64,17 +65,17 @@ function showCheatPic() {
     img.appendTo('#cheatsheet');
 }
 
-function dynamicRadius() {
+function dynamicSize() {
     return $(window).height() * 0.02;
 }
 
 function startClock() {
     timer = $("#clock").countdown360({
-        radius: dynamicRadius(), //.toFixed(2),
+        radius: dynamicSize(), //.toFixed(2),
         seconds: 5,
         label: false,
         strokeWidth: 8,
-        fontSize: 20,
+        fontSize: dynamicSize(),
         fontColor: "#FFFFFF",
         fillStyle: "#0276FD",
         strokeStyle: "#003F87",
