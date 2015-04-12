@@ -14,16 +14,46 @@ $(document).ready(function () {
     var textArea = document.getElementById("answer");
     nextCharToSign = 0;
     textArea.addEventListener('keyup', checkAnswer, false);
-    success.style.opacity = 0;
     loadDictionary(function () {
         displayWord(randomIndex());
     });
-    startClock();
-    checkAnswer();
     $(window).resize(function(){
         timer.settings.radius = dynamicRadius().toFixed(2);
     });
+    $("#difficulty").children().each(function() {
+        if ($(this).attr('id') == 'hard'){
+            $(this).click(function() {
+                changeDifficulty(3, false)
+            });
+        }
+        else if ($(this).attr('id') == 'medium') {
+            $(this).click(function() {
+                changeDifficulty(5, true)
+            });
+        }
+        else if ($(this).attr('id') == 'easy') {
+            $(this).click(function() {
+                changeDifficulty(8, true)
+            });
+        }
+    });
+
+
+    //start the game
+    startClock();
+    checkAnswer();
 });
+
+function changeDifficulty(time, showCheatSheet) {
+    timer.settings.seconds = time;
+    if (showCheatSheet) {
+        $("#cheatsheet").show();
+    }
+    else {
+        $("#cheatsheet").hide();
+    }
+    timer.start();
+}
 
 function dynamicRadius() {
     return $(window).height() * 0.03;
@@ -46,8 +76,6 @@ function startClock() {
         }
     });
     timer.start();
-
-    
 }
 
 function failedCharacter() {

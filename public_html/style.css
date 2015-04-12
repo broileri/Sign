@@ -27,10 +27,12 @@ body {
 }
 
 #successAnimation {
+    clear: right;
     text-align: center; 
     color: green;
     font-size: 3.5vw;
     font-weight: 900;
+    opacity: 0;
 }
 
 #areaholder {    
@@ -47,6 +49,7 @@ body {
 }
 
 #difficulty {
-    float:left;
-    padding-left:1em;
+    float: right;
+    text-align: center;
+    padding-left: 2em;
 }
