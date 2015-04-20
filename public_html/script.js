@@ -5,6 +5,7 @@ var originalWord; //The randomly chosen word for this round
 var nextCharToSign; //Index of the character the user needs to sign
 var timer;
 var perfect; // true if player signs or types every letter correctly
+var scoreMultiplier = 1;
 
 
 
@@ -25,16 +26,19 @@ $(document).ready(function () {
         if ($(this).attr('id') === 'hard') {
             $(this).click(function () {
                 changeDifficulty(3, false);
+                scoreMultiplier = 3;
             });
         }
         else if ($(this).attr('id') === 'medium') {
             $(this).click(function () {
                 changeDifficulty(5, true);
+                scoreMultiplier = 1.5;
             });
         }
         else if ($(this).attr('id') === 'easy') {
             $(this).click(function () {
                 changeDifficulty(8, true);
+                scoreMultiplier = 1;
             });
         }
     });
@@ -56,6 +60,20 @@ function changeDifficulty(time, showCheatSheet) {
     nextCharToSign = 0;
     displayWord(randomIndex());
     timer.start();
+}
+
+function getCurrentScore() {
+    return parseFloat($("#points").text());
+}
+
+function setCurrentScore(score) {
+    $("#points").text(score);
+}
+
+function increaseScore() {
+    score = getCurrentScore();
+    score += (1 * scoreMultiplier);
+    setCurrentScore(score);
 }
 
 function showCheatPic() {
@@ -98,6 +116,7 @@ function failedCharacter() {
 function succeededCharacter() {
     document.getElementById(nextCharToSign).style.color = "green";
     addToNextCharToSign();
+    increaseScore();
     timer.start();
 }
 
