@@ -68,7 +68,7 @@ function BindClicksToDifficultyButtons() {
     $("#difficulty").children().each(function () {
         $(this).click(function () {
             HighlightSelectedButton(this);
-            changeDifficulty(GetDifficultySettings($(this).attr('id')));
+            changeDifficulty(GetDifficultySettings($(this).text()));
         });
     });
 }
