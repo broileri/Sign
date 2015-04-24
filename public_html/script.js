@@ -6,9 +6,39 @@ var nextCharToSign; //Index of the character the user needs to sign
 var timer;
 var perfect; // true if player signs or types every letter correctly
 var scoreMultiplier = 1;
+var difficultySettings = {
+                            'easy':{
+                                'multiplier': 1,
+                                'clock': 8,
+                                'showSignPictures': true
+                            },
+                              'medium': {
+                                'multiplier': 1.5,
+                                'clock': 5,
+                                'showSignPictures': true
+                              },
+                              'hard': {
+                                'multiplier': 3,
+                                'clock': 3,
+                                'showSignPictures': false
+                              }
+                          };
 
-// ---------------- Game/general stuff --------------------
 $(document).ready(function () {
+    ShowStartScreen();
+});
+
+function ShowStartScreen() {
+    $('#startScreen button').each(function (){
+        $(this).click(function() {
+            $('#startScreen').hide();
+            $('#gameWrapper').show();
+            StartGame(GetDifficultySettings($(this).text()));
+        });
+    });
+}
+
+function StartGame(difficultySettings) {
     perfect = true;
     var textArea = document.getElementById("answer");
     nextCharToSign = 0;
@@ -20,38 +50,35 @@ $(document).ready(function () {
         timer.settings.radius = dynamicSize();
         timer.settings.fontSize = dynamicSize();
     });
+
+    BindClicksToDifficultyButtons();
+
+    startClock(difficultySettings['clock']);
+    checkAnswer();
+}
+
+function GetDifficultySettings(difficulty) {
+    return difficultySettings[difficulty.toLowerCase()];
+}
+
+function BindClicksToDifficultyButtons() {
     $("#difficulty").children().each(function () {
         $(this).click(function () {
             HighlightSelectedButton(this);
-            if ($(this).attr('id') === 'hard') {
-                changeDifficulty(3, false);
-                scoreMultiplier = 3;
-            }
-            else if ($(this).attr('id') === 'medium') {
-                changeDifficulty(5, true);
-                scoreMultiplier = 1.5;
-            }
-            else if ($(this).attr('id') === 'easy') { 
-                changeDifficulty(8, true);
-                scoreMultiplier = 1;
-            }
+            changeDifficulty(GetDifficultySettings($(this).attr('id')));
         });
-
     });
-
-    //start the game
-    startClock();
-    checkAnswer();
-});
+}
 
 function HighlightSelectedButton(button) {
     $('#difficulty button').removeClass('selected');
     $(button).addClass('selected');
 }
 
-function changeDifficulty(time, showCheatSheet) {
-    timer.settings.seconds = time;
-    if (showCheatSheet) {
+function changeDifficulty(difficultySettings) {
+    timer.settings.seconds = difficultySettings['clock'];
+    scoreMultiplier = difficultySettings['multiplier'];
+    if (difficultySettings['showSignPictures']) {
         $("#cheatsheet").show();
     }
     else {
@@ -87,10 +114,10 @@ function dynamicSize() {
     return $(window).height() * 0.02;
 }
 
-function startClock() {
+function startClock(numberOfSecondsOnClock) {
     timer = $("#clock").countdown360({
         radius: dynamicSize(), 
-        seconds: 5,
+        seconds: numberOfSecondsOnClock,
         label: false,
         strokeWidth: 8,
         fontSize: dynamicSize(),
@@ -152,7 +179,7 @@ function FailedWord() {
 }
 
 function LoseLife() {
-    alert('failed');
+    return;
 }
 
 function checkAnswer() {

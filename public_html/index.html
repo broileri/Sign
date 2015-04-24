@@ -8,29 +8,39 @@
         <link rel="stylesheet" type="text/css" href="style.css" >
     </head>
     <body>
+        <div id="startScreen">
+            <h1 id="welcomeHeader">
+                Welcome to Sign-it! Choose difficulty to start: 
+            </h1>
 
-        <div id="gameScreen">
-            <div id="scoreDiv">Score: <span id="points">0</span></div>
-            <div id="clock"></div>
-            <div id ="letterArea"></div>
-        </div>        
-        <div id="areaholder">
-            <input type="text" id="answer"/>
+            <button type="button">Hard</button> <br />
+            <button type="button">Medium</button> <br />
+            <button type="button">Easy</button> <br />   
         </div>
-        <div id="difficulty">
-            <button id="hard" type="button">Hard</button>
-            <button id="medium" type="button">Medium</button>
-            <button id="easy" type="button">Easy</button> 
-        </div>
+        <div id="gameWrapper">
+            <div id="gameScreen">
+                <div id="scoreDiv">Score: <span id="points">0</span></div>
+                <div id="clock"></div>
+                <div id ="letterArea"></div>
+            </div>        
+            <div id="areaholder">
+                <input type="text" id="answer"/>
+            </div>
+            <div id="difficulty">
+                <button id="hard" type="button">Hard</button>
+                <button id="medium" type="button">Medium</button>
+                <button id="easy" type="button">Easy</button> 
+            </div>
+                
+            <br>
+            <div id="cheatsheet">            
+            </div> 
             
-        <br>
-        <div id="cheatsheet">            
-        </div> 
-        
-        <div>
-            <p id ="successAnimation">
-                Perfect! \o/
-            </p>
+            <div>
+                <p id ="successAnimation">
+                    Perfect! \o/
+                </p>
+            </div>
         </div>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
