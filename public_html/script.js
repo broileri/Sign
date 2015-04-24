@@ -89,7 +89,7 @@ function dynamicSize() {
 
 function startClock() {
     timer = $("#clock").countdown360({
-        radius: dynamicSize(), //.toFixed(2),
+        radius: dynamicSize(), 
         seconds: 5,
         label: false,
         strokeWidth: 8,
@@ -127,12 +127,32 @@ function addToNextCharToSign() {
         if (perfect) {
             successAnimationStart();
         }
+        if (FailedWord()) {
+            LoseLife();
+        }
         perfect = true;
         nextCharToSign = 0;
         displayWord(randomIndex());
         return;
     }
     showCheatPic();
+}
+
+function FailedWord() {
+    numberOfLetters = $('#letterArea span').length;
+    numberOfFailedLetters = 0;
+
+    $('#letterArea span').each(function() {
+        if ($(this).attr('style').indexOf('red') > -1) {
+            numberOfFailedLetters += 1;
+        }
+    });
+
+    return numberOfFailedLetters > numberOfLetters / 2;
+}
+
+function LoseLife() {
+    alert('failed');
 }
 
 function checkAnswer() {
