@@ -33,6 +33,7 @@ function ShowStartScreen() {
         $(this).click(function() {
             $('#startScreen').hide();
             $('#gameWrapper').show();
+            HighlightSelectedButton($('#difficulty button:contains(' + $(this).text() + ')'))
             StartGame(GetDifficultySettings($(this).text()));
         });
     });
@@ -182,7 +183,11 @@ function FailedWord() {
 }
 
 function LoseLife() {
-    return;
+    lives = parseInt($("#lives").text(), 10);
+    lives -= 1;
+    if (lives == 0) {
+        alert("kuali saatana");
+    }
 }
 
 function checkAnswer() {
