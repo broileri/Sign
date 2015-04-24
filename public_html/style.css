@@ -28,6 +28,7 @@ button {
     box-shadow: 5px 5px 5px #272727;
 
     /* such roundness */
+    /* height:  30%; */
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -36,9 +37,6 @@ button {
 #successAnimation {
     clear: right;
     text-align: center; 
-    color: green;
-    font-size: 3.5vw;
-    font-weight: 900;
     opacity: 0;
 }
 
@@ -55,18 +53,25 @@ button {
 
 #clock {
     position: absolute;
-    right: 28vw;
+    right: 29vw;
 
 }
 
 #scoreDiv {
     position: absolute;
-    left: 28vw;
+    left: 29vw;
     margin: 0.3em 0 0 0.3em;
+ }
+ 
+  #lifeDiv {
+    position: absolute;
+    left: 29vw;
+    //margin: 0.3em 0 0 0.3em;  
  }
 
 #gameScreen { 
     position: relative;
+    /* height: 60%; */
 }
 
 #cheatsheet {

@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>Sign Here</title>
+        <title>Sign-it</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style.css" >
@@ -14,35 +14,31 @@
                 Welcome to Sign-it! Choose difficulty to start: 
             </h1>
 
-            <button type="button">Hard</button> <br />
+            <button type="button">Easy</button> <br />
             <button type="button">Medium</button> <br />
-            <button type="button">Easy</button> <br />   
+            <button type="button">Hard</button> <br />   
         </div>
 
         <div id="gameWrapper">
             <div id="gameScreen">
-                <div id="scoreDiv">Score: <span id="points">0</span></div>
+                <div id="scoreDiv">Score: <span id="points">0</span></div>                
                 <div id="clock"></div>
                 <div id ="letterArea"></div>
+                <div id="lifeDiv"><span id="lives"></span></div>
             </div>        
             <div id="areaholder">
                 <input type="text" id="answer"/>
             </div>
             <div id="difficulty">
-                <button type="button">Hard</button>
+                <button type="button">Easy</button>
                 <button type="button">Medium</button>
-                <button type="button">Easy</button> 
-            </div>
-                
+                <button type="button">Hard</button> 
+            </div>                
             <br>
             <div id="cheatsheet">            
             </div> 
             
-            <div>
-                <p id ="successAnimation">
-                    Perfect! \o/
-                </p>
-            </div>
+            <div id="successAnimation"><br></div>
         </div>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>

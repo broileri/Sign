@@ -6,34 +6,35 @@ var nextCharToSign; //Index of the character the user needs to sign
 var timer;
 var perfect; // true if player signs or types every letter correctly
 var scoreMultiplier;
+var lives;
 var difficultySettings = {
-                            'easy':{
-                                'multiplier': 1,
-                                'clock': 8,
-                                'showSignPictures': true
-                            },
-                              'medium': {
-                                'multiplier': 1.5,
-                                'clock': 5,
-                                'showSignPictures': true
-                              },
-                              'hard': {
-                                'multiplier': 3,
-                                'clock': 3,
-                                'showSignPictures': false
-                              }
-                          };
+    'easy': {
+        'multiplier': 1,
+        'clock': 8,
+        'showSignPictures': true
+    },
+    'medium': {
+        'multiplier': 1.5,
+        'clock': 5,
+        'showSignPictures': true
+    },
+    'hard': {
+        'multiplier': 3,
+        'clock': 3,
+        'showSignPictures': false
+    }
+};
 
 $(document).ready(function () {
     ShowStartScreen();
 });
 
 function ShowStartScreen() {
-    $('#startScreen button').each(function (){
-        $(this).click(function() {
+    $('#startScreen button').each(function () {
+        $(this).click(function () {
             $('#startScreen').hide();
             $('#gameWrapper').show();
-            HighlightSelectedButton($('#difficulty button:contains(' + $(this).text() + ')'))
+            HighlightSelectedButton($('#difficulty button:contains(' + $(this).text() + ')'));
             StartGame(GetDifficultySettings($(this).text()));
         });
     });
@@ -44,6 +45,11 @@ function StartGame(difficultySettings) {
         timer.settings.radius = dynamicSize();
         timer.settings.fontSize = dynamicSize();
     });
+
+
+    if (!difficultySettings.showSignPictures) {
+        $("#cheatsheet").hide();
+    }
 
     var textArea = $('#answer');
     textArea.keyup(checkAnswer);
@@ -58,6 +64,8 @@ function StartGame(difficultySettings) {
     scoreMultiplier = difficultySettings['multiplier'];
     nextCharToSign = 0;
     perfect = true;
+    lives = 3;
+    loadLives();
     checkAnswer();
 }
 
@@ -88,6 +96,7 @@ function changeDifficulty(difficultySettings) {
     else {
         $("#cheatsheet").hide();
     }
+    loadLives();
     nextCharToSign = 0;
     displayWord(randomIndex());
     timer.start();
@@ -120,7 +129,7 @@ function dynamicSize() {
 
 function startClock(numberOfSecondsOnClock) {
     timer = $("#clock").countdown360({
-        radius: dynamicSize(), 
+        radius: dynamicSize(),
         seconds: numberOfSecondsOnClock,
         label: false,
         strokeWidth: 8,
@@ -131,17 +140,42 @@ function startClock(numberOfSecondsOnClock) {
         startOverAfterAdding: true,
         autostart: false,
         onComplete: function () {
-            failedCharacter();
+            if (lives > 0) { // joo, tälle vois tehdä jotain
+                failedCharacter();
+            }
         }
     });
     timer.start();
 }
 
+function loadLives() {
+    $("#lifeDiv img").remove();
+    lives = 3;
+    for (var life = 0; life < lives; life++) {
+        var img = $('<img>');
+        img.attr('src', 'Pics/heart.png');
+        img.appendTo('#lifeDiv');
+    }
+}
+
+
+function killOneLife() {
+    lives--;
+    $("#lifeDiv img")[0].remove();
+    if (lives === 0) {
+        console.log("lol, noob");
+        //timer.stop(); :<
+    }
+}
+
 function failedCharacter() {
     perfect = false;
     document.getElementById(nextCharToSign).style.color = "red";
-    addToNextCharToSign();
-    timer.start();
+    killOneLife();
+    if (lives > 0) {
+        addToNextCharToSign();
+        timer.start();
+    }
 }
 
 function succeededCharacter() {
@@ -152,15 +186,15 @@ function succeededCharacter() {
 }
 
 function addToNextCharToSign() {
-    console.log(nextCharToSign);
+    //console.log(nextCharToSign);
     nextCharToSign += 1;
     if (nextCharToSign === originalWord.length - 1) {
         if (perfect) {
             successAnimationStart();
         }
-        if (FailedWord()) {
-            LoseLife();
-        }
+//        if (FailedWord()) {
+//            LoseLife();
+//        }
         perfect = true;
         nextCharToSign = 0;
         displayWord(randomIndex());
@@ -169,26 +203,26 @@ function addToNextCharToSign() {
     showCheatPic();
 }
 
-function FailedWord() {
-    numberOfLetters = $('#letterArea span').length;
-    numberOfFailedLetters = 0;
+//function FailedWord() {
+//    numberOfLetters = $('#letterArea span').length;
+//    numberOfFailedLetters = 0;
+//
+//    $('#letterArea span').each(function() {
+//        if ($(this).attr('style').indexOf('red') > -1) {
+//            numberOfFailedLetters += 1;
+//        }
+//    });
+//
+//    return numberOfFailedLetters > numberOfLetters / 2;
+//}
 
-    $('#letterArea span').each(function() {
-        if ($(this).attr('style').indexOf('red') > -1) {
-            numberOfFailedLetters += 1;
-        }
-    });
-
-    return numberOfFailedLetters > numberOfLetters / 2;
-}
-
-function LoseLife() {
-    lives = parseInt($("#lives").text(), 10);
-    lives -= 1;
-    if (lives == 0) {
-        alert("kuali saatana");
-    }
-}
+//function LoseLife() {
+//    lives = parseInt($("#lives").text(), 10);
+//    lives -= 1;
+//    if (lives == 0) {
+//        alert("kuali saatana");
+//    }
+//}
 
 function checkAnswer() {
     var nextChar = document.getElementById(nextCharToSign).innerHTML.toLowerCase();
@@ -261,6 +295,12 @@ function successAnimationStart() {
 }
 
 function fading() {
+
+    $("#successAnimation img").remove();
+    var img = $('<img>');
+    img.attr('src', 'Pics/strong.png');
+    img.appendTo('#successAnimation');
+
     if (success.style.opacity <= 0) {
         clearInterval(animInterval);
     } else {
