@@ -5,7 +5,7 @@ var originalWord; //The randomly chosen word for this round
 var nextCharToSign; //Index of the character the user needs to sign
 var timer;
 var perfect; // true if player signs or types every letter correctly
-var scoreMultiplier = 1;
+var scoreMultiplier;
 var difficultySettings = {
                             'easy':{
                                 'multiplier': 1,
@@ -39,21 +39,24 @@ function ShowStartScreen() {
 }
 
 function StartGame(difficultySettings) {
-    perfect = true;
-    var textArea = document.getElementById("answer");
-    nextCharToSign = 0;
-    textArea.addEventListener('keyup', checkAnswer, false);
-    loadDictionary(function () {
-        displayWord(randomIndex());
-    });
     $(window).resize(function () {
         timer.settings.radius = dynamicSize();
         timer.settings.fontSize = dynamicSize();
     });
 
+    var textArea = $('#answer');
+    textArea.keyup(checkAnswer);
+
+    loadDictionary(function () {
+        displayWord(randomIndex());
+    });
+
     BindClicksToDifficultyButtons();
 
     startClock(difficultySettings['clock']);
+    scoreMultiplier = difficultySettings['multiplier'];
+    nextCharToSign = 0;
+    perfect = true;
     checkAnswer();
 }
 
@@ -210,7 +213,7 @@ function loadDictionary(callback) {
                 dictionary = dictionary.split("\n");
             }
             else {
-                alert("Something went wrong in getting the dictionary file");
+                alert("Something went wrong in getting the dictionary file. Please refresh.");
             }
         }
     };
