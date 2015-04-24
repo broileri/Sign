@@ -76,11 +76,6 @@ body {
     box-shadow: 5px 5px 5px #272727;
 }
 
-
-
-
-
-
 #difficulty {
     text-align: center;
 }
@@ -110,4 +105,8 @@ body {
  	background: #858686;
  }
 
+ .selected {
+    border: 4px solid #0276FD;
+    border-radius: 30px;
+ }
  

@@ -23,24 +23,22 @@ $(document).ready(function () {
         timer.settings.fontSize = dynamicSize();
     });
     $("#difficulty").children().each(function () {
-        if ($(this).attr('id') === 'hard') {
-            $(this).click(function () {
+        $(this).click(function () {
+            HighlightSelectedButton(this);
+            if ($(this).attr('id') === 'hard') {
                 changeDifficulty(3, false);
                 scoreMultiplier = 3;
-            });
-        }
-        else if ($(this).attr('id') === 'medium') {
-            $(this).click(function () {
+            }
+            else if ($(this).attr('id') === 'medium') {
                 changeDifficulty(5, true);
                 scoreMultiplier = 1.5;
-            });
-        }
-        else if ($(this).attr('id') === 'easy') {
-            $(this).click(function () {
+            }
+            else if ($(this).attr('id') === 'easy') { 
                 changeDifficulty(8, true);
                 scoreMultiplier = 1;
-            });
-        }
+            }
+        });
+
     });
 
 
@@ -48,6 +46,11 @@ $(document).ready(function () {
     startClock();
     checkAnswer();
 });
+
+function HighlightSelectedButton(button) {
+    $('#difficulty button').removeClass('selected');
+    $(button).addClass('selected');
+}
 
 function changeDifficulty(time, showCheatSheet) {
     timer.settings.seconds = time;
