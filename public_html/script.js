@@ -7,8 +7,6 @@ var timer;
 var perfect; // true if player signs or types every letter correctly
 var scoreMultiplier = 1;
 
-
-
 // ---------------- Game/general stuff --------------------
 $(document).ready(function () {
     perfect = true;
@@ -19,7 +17,7 @@ $(document).ready(function () {
         displayWord(randomIndex());
     });
     $(window).resize(function () {
-        timer.settings.radius = dynamicSize();//.toFixed(2);
+        timer.settings.radius = dynamicSize();
         timer.settings.fontSize = dynamicSize();
     });
     $("#difficulty").children().each(function () {
@@ -40,7 +38,6 @@ $(document).ready(function () {
         });
 
     });
-
 
     //start the game
     startClock();
