@@ -48,6 +48,9 @@ function ShowStartScreen() {
 }
 
 function StartGame(difficultySettings) {
+    
+    $("#sadFrog img").remove();
+    
     $(window).resize(function () {
         timer.settings.radius = dynamicSize();
         timer.settings.fontSize = dynamicSize();
@@ -179,6 +182,11 @@ function GameOver() {
     $('#startScreen #welcomeHeader').hide();
 
     $('#startScreen #gameOverHeader').show();
+        
+    var img = $('<img>');
+    img.attr('src', 'Pics/frog.png');
+    img.appendTo('#sadFrog');
+    
     $('#startScreen').show();
     
     $('#startScreen #scored').text(points);
