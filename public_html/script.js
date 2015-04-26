@@ -170,10 +170,11 @@ function GameOver() {
     points = $('#points').text();
 
     $('#gameWrapper').hide();
-    $('#startScreen').show();
-
     $('#startScreen #welcomeHeader').hide();
+    
     $('#startScreen #gameOverHeader').show();
+    $('#startScreen').show();
+    
     $('#startScreen #scored').text(points);
 
     timer.stop();
