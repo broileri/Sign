@@ -14,6 +14,10 @@ button {
     color: black;
 }
 
+h1 {
+    color: #0276FD;
+ }
+
 #letterArea {    
     background-color: white;
     width: 35vw;
@@ -125,10 +129,6 @@ button {
     text-align: center;
     margin-top: 20em;
 
- }
-
- #welcomeHeader {
-    color: #0276FD;
  }
 
  #startScreen button {

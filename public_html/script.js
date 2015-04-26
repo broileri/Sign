@@ -30,6 +30,7 @@ $(document).ready(function () {
 });
 
 function ShowStartScreen() {
+    $('#gameOverHeader').hide();
     $('#startScreen button').each(function () {
         $(this).click(function () {
             $('#startScreen').hide();
@@ -140,9 +141,7 @@ function startClock(numberOfSecondsOnClock) {
         startOverAfterAdding: true,
         autostart: false,
         onComplete: function () {
-            if (lives > 0) { // joo, tälle vois tehdä jotain
-                failedCharacter();
-            }
+            failedCharacter();
         }
     });
     timer.start();
@@ -163,9 +162,21 @@ function killOneLife() {
     lives--;
     $("#lifeDiv img")[0].remove();
     if (lives === 0) {
-        console.log("lol, noob");
-        //timer.stop(); :<
+        GameOver();
     }
+}
+
+function GameOver() {
+    points = $('#points').text();
+
+    $('#gameWrapper').hide();
+    $('#startScreen').show();
+
+    $('#startScreen #welcomeHeader').hide();
+    $('#startScreen #gameOverHeader').show();
+    $('#startScreen #scored').text(points);
+
+    timer.stop();
 }
 
 function failedCharacter() {
