@@ -203,9 +203,6 @@ function addToNextCharToSign() {
         if (perfect) {
             successAnimationStart();
         }
-//        if (FailedWord()) {
-//            LoseLife();
-//        }
         perfect = true;
         nextCharToSign = 0;
         displayWord(randomIndex());
@@ -213,27 +210,6 @@ function addToNextCharToSign() {
     }
     showCheatPic();
 }
-
-//function FailedWord() {
-//    numberOfLetters = $('#letterArea span').length;
-//    numberOfFailedLetters = 0;
-//
-//    $('#letterArea span').each(function() {
-//        if ($(this).attr('style').indexOf('red') > -1) {
-//            numberOfFailedLetters += 1;
-//        }
-//    });
-//
-//    return numberOfFailedLetters > numberOfLetters / 2;
-//}
-
-//function LoseLife() {
-//    lives = parseInt($("#lives").text(), 10);
-//    lives -= 1;
-//    if (lives == 0) {
-//        alert("kuali saatana");
-//    }
-//}
 
 function checkAnswer() {
     var nextChar = document.getElementById(nextCharToSign).innerHTML.toLowerCase();
