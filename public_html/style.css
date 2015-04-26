@@ -134,3 +134,7 @@ h1 {
  #startScreen button {
     height: 10%;
  }
+
+ #gameOverHeader {
+    display: none;
+ }

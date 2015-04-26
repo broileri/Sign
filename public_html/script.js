@@ -30,13 +30,19 @@ $(document).ready(function () {
 });
 
 function ShowStartScreen() {
-    $('#gameOverHeader').hide();
     $('#startScreen button').each(function () {
         $(this).click(function () {
-            $('#startScreen').hide();
-            $('#gameWrapper').show();
+
+            $('html').css('cursor', 'wait');
             HighlightSelectedButton($('#difficulty button:contains(' + $(this).text() + ')'));
-            StartGame(GetDifficultySettings($(this).text()));
+            difficultyConfig = GetDifficultySettings($(this).text());
+
+            setTimeout(function() {
+                $('html').css('cursor', 'default');
+                $('#startScreen').hide();
+                $('#gameWrapper').show();
+                StartGame(difficultyConfig);
+            }, 2000)
         });
     });
 }
@@ -171,7 +177,7 @@ function GameOver() {
 
     $('#gameWrapper').hide();
     $('#startScreen #welcomeHeader').hide();
-    
+
     $('#startScreen #gameOverHeader').show();
     $('#startScreen').show();
     
