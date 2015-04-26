@@ -70,12 +70,7 @@ function StartGame(difficultySettings) {
 
     BindClicksToDifficultyButtons();
 
-    startClock(difficultySettings['clock']);
-    scoreMultiplier = difficultySettings['multiplier'];
-    nextCharToSign = 0;
-    perfect = true;
-    lives = 3;
-    loadLives();
+    changeDifficulty(difficultySettings);
     checkAnswer();
 }
 
@@ -98,7 +93,7 @@ function HighlightSelectedButton(button) {
 }
 
 function changeDifficulty(difficultySettings) {
-    timer.settings.seconds = difficultySettings['clock'];
+    startClock(difficultySettings['clock']);
     scoreMultiplier = difficultySettings['multiplier'];
     if (difficultySettings['showSignPictures']) {
         $("#cheatsheet").show();
@@ -106,6 +101,7 @@ function changeDifficulty(difficultySettings) {
     else {
         $("#cheatsheet").hide();
     }
+    perfect = true;
     loadLives();
     nextCharToSign = 0;
     displayWord(randomIndex());
@@ -140,7 +136,7 @@ function dynamicSize() {
 function startClock(numberOfSecondsOnClock) {
     timer = $("#clock").countdown360({
         radius: dynamicSize(),
-        seconds: numberOfSecondsOnClock,
+        seconds: 0,
         label: false,
         strokeWidth: 8,
         fontSize: dynamicSize(),
@@ -150,9 +146,12 @@ function startClock(numberOfSecondsOnClock) {
         startOverAfterAdding: true,
         autostart: false,
         onComplete: function () {
-            failedCharacter();
+            if (lives > 0) {
+                failedCharacter();    
+            }
         }
     });
+    timer.settings.seconds = numberOfSecondsOnClock;
     timer.start();
 }
 
