@@ -26,7 +26,11 @@ var difficultySettings = {
 };
 
 $(document).ready(function () {
-    ShowStartScreen();
+    ShowStartScreen();    
+});
+
+$(window).unload(function () {
+    CloseWebSocket();
 });
 
 function ShowStartScreen() {
@@ -37,12 +41,12 @@ function ShowStartScreen() {
             HighlightSelectedButton($('#difficulty button:contains(' + $(this).text() + ')'));
             difficultyConfig = GetDifficultySettings($(this).text());
 
-            setTimeout(function() {
+            CreateWebSocket(function() {
                 $('html').css('cursor', 'default');
                 $('#startScreen').hide();
                 $('#gameWrapper').show();
                 StartGame(difficultyConfig);
-            }, 2000)
+            });
         });
     });
 }
@@ -233,6 +237,13 @@ function checkAnswer() {
     }
     document.getElementById("answer").value = "";
 
+}
+
+function checkSignedAnswer(char) {
+    nextAnswer = document.getElementById("answer").value.toLowerCase();
+    if (char === nextAnswer) {
+        succeededCharacter();
+    }
 }
 
 function loadDictionary(callback) {
