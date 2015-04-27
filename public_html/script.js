@@ -26,7 +26,9 @@ var difficultySettings = {
 };
 
 $(document).ready(function () {
-    ShowStartScreen();    
+    CreateWebSocket(function() {
+        ShowStartScreen();        
+    })
 });
 
 $(window).unload(function () {
@@ -41,12 +43,12 @@ function ShowStartScreen() {
             HighlightSelectedButton($('#difficulty button:contains(' + $(this).text() + ')'));
             difficultyConfig = GetDifficultySettings($(this).text());
 
-            CreateWebSocket(function() {
+            setTimeout(function() {
                 $('html').css('cursor', 'default');
                 $('#startScreen').hide();
                 $('#gameWrapper').show();
                 StartGame(difficultyConfig);
-            });
+            }, 2000);
         });
     });
 }
@@ -239,9 +241,9 @@ function checkAnswer() {
 
 }
 
-function checkSignedAnswer(char) {
+function checkSignedAnswer(data) {
     nextAnswer = document.getElementById("answer").value.toLowerCase();
-    if (char === nextAnswer) {
+    if (data === nextAnswer) {
         succeededCharacter();
     }
 }

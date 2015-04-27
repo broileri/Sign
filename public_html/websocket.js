@@ -7,7 +7,9 @@ function CreateWebSocket(callback) {
 	};
 	ws.onmessage = function (event) {
 		console.log("Message is received..." + event.data)
-		checkSignedAnswer(event.data);
+		if ($("#startScreen").css("display") === "none") { //Game is going on
+			checkSignedAnswer(event.data);	
+		}
 	}
 }
 
