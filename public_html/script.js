@@ -72,7 +72,7 @@ function StartGame(difficultySettings) {
     });
 
     BindClicksToDifficultyButtons();
-
+    setCurrentScore(0);
     changeDifficulty(difficultySettings);
 }
 
