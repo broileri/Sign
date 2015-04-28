@@ -67,9 +67,6 @@ function StartGame(difficultySettings) {
         $("#cheatsheet").hide();
     }
 
-    var textArea = $('#answer');
-    textArea.keyup(checkAnswer);
-
     loadDictionary(function () {
         displayWord(randomIndex());
     });
@@ -77,7 +74,6 @@ function StartGame(difficultySettings) {
     BindClicksToDifficultyButtons();
 
     changeDifficulty(difficultySettings);
-    checkAnswer();
 }
 
 function GetDifficultySettings(difficulty) {
@@ -217,7 +213,6 @@ function succeededCharacter() {
 }
 
 function addToNextCharToSign() {
-    //console.log(nextCharToSign);
     nextCharToSign += 1;
     if (nextCharToSign === originalWord.length - 1) {
         if (perfect) {
@@ -231,19 +226,10 @@ function addToNextCharToSign() {
     showCheatPic();
 }
 
-function checkAnswer() {
-    var nextChar = document.getElementById(nextCharToSign).innerHTML.toLowerCase();
-    var nextAnswer = document.getElementById("answer").value.toLowerCase();
-    if (nextAnswer === nextChar) {
-        succeededCharacter();
-    }
-    document.getElementById("answer").value = "";
-
-}
-
 function checkSignedAnswer(data) {
-    nextAnswer = document.getElementById("answer").value.toLowerCase();
-    if (data === nextAnswer) {
+    $('#recognizedSign').text(data);
+    var nextChar = document.getElementById(nextCharToSign).innerHTML.toLowerCase();
+    if (data === nextChar) {
         succeededCharacter();
     }
 }
